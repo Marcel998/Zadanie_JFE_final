@@ -11,7 +11,24 @@ body {
 
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+  margin: 0;
+}
+
+.header__js-logo{
+  display: table-cell;
+  box-sizing: border-box;
+  height: 2em;
+  width: 2em;
+  padding-right: 0.1em;
+  background-color: #FBD84A;
+  vertical-align: bottom;
+  text-align: right;
+}
+
+.header__title{
+  display: table-cell;
+  vertical-align: bottom;
+  padding-left: 0.2em;
 }
 
 b,
