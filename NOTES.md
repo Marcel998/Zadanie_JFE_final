@@ -5,5 +5,3 @@ W trakcie wypełniania zadania wypełnij plik notes.md
 
 
 
-
-
