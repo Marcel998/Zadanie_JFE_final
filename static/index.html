@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>JavaScript Youtube Channels</title>
     <link rel="stylesheet" type="text/css" href="vendor.css" />
-    <script src="../channels_list.js"></script>
+    <!-- <script src="../channels_list.js"></script> -->
   </head>
   <body class="wrapper">
     <header class="wrapper__header">
@@ -34,8 +34,8 @@
             </div>
           </li> -->
 
-      <div class="main">
-        <ul class="channels__list">
+      <!-- <div class="main">
+        <ul class="channel__list">
           <li>
             <div class="channel">
               <img
@@ -61,7 +61,8 @@
             </div>
           </li>
         </ul>
-      </div>
+      </div> -->
+      <channel-list></channel-list>
       <!-- /\           tutaj będzie lista kanałów-->
     </main>
 
@@ -120,48 +121,33 @@
         <button class="button">Clear</button>
       </div>
     </aside>
+    <script src="../channel/channel.js"></script>
     <script>
       // channels \/
-      // <!--import myJson from '../static/channels.json' assert {type: 'json'};-->
 
-      // <!--console.log(myJson)-->
-
-      const channelsList = document.querySelector(".channels__list");
-      //   console.log(channelsList);
-      const channelsListLi = document.querySelector(".channels__list li");
-      //   const liElement = document.createElement("li");
-      //   liElement.innerHTML = "Eluwina";
-      console.log(channelsListLi);
-
-      //   channelsList.appendChild(liElement);
-
-      fetch("../static/channels.json")
-        .then((response) => response.json())
-        // .then((data) => console.log(data))
-        .then((data) => {
-          data.map((channel) => {
-            const liElement = document.createElement("li");
-
-            const title = channel.title;
-            const description = channel.description;
-            const customUrl = channel.customUrl;
-            const publishedAt = channel.publishedAt;
-            const thumbnails = channel.thumbnails;
-            const localized = channel.localized;
-            const country = channel.country;
-            const statistics = channel.statistics;
-
-            channelsList.appendChild(channelsListLi.cloneNode(true));
-          });
-        });
-
-      //   async function listChannels() {
-      //     const channelss = await "../static/channels.json";
-      //     const ch2 = channelss.json();
-      //     console.log(ch2);
-      //   }
-
-      //channels /\
+      // const channelsList = document.querySelector(".channel__list");
+      // const channelsListLi = document.querySelector(".channel__list li");
+      // console.log(channelsListLi);
+      //
+      //
+      // fetch("../static/channels.json")
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     data.map((channel) => {
+      //       const liElement = document.createElement("li");
+      //
+      //       const title = channel.title;
+      //       const description = channel.description;
+      //       const customUrl = channel.customUrl;
+      //       const publishedAt = channel.publishedAt;
+      //       const thumbnails = channel.thumbnails;
+      //       const localized = channel.localized;
+      //       const country = channel.country;
+      //       const statistics = channel.statistics;
+      //
+      //       channelsList.appendChild(channelsListLi.cloneNode(true));
+      //     });
+      //   });
     </script>
   </body>
 </html>
