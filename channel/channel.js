@@ -8,7 +8,6 @@ class Channel extends HTMLElement {
   }
 
   connectedCallback() {
-    //lifecycle event | dostaniemy ten call, gdy nasz element zostanie dodany do strony
     this.render();
   }
 
@@ -182,7 +181,6 @@ class Channel extends HTMLElement {
   }
 
   render() {
-    console.log(Channel.observedAttributes);
     Channel.asyncGetChannelsArray().then((channelsArr) => {
       const channelList = channelsArr.map((channel) => {
         return `
@@ -220,13 +218,10 @@ class Channel extends HTMLElement {
             `;
       });
 
-      console.log(this.sortValue);
-
       this.shadow.innerHTML = `
             ${this.style}
                 <div class="main">
                 <ul class="channel__list">
-                ${Channel.observedAttributes}
                 ${channelList.join("")}
                 </ul>
             </div>
