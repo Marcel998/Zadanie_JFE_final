@@ -62,7 +62,7 @@
           </li>
         </ul>
       </div> -->
-      <channel-list></channel-list>
+      <channel-list sortValue="eloelo" filterValue=""></channel-list>
       <!-- /\           tutaj będzie lista kanałów-->
     </main>
 
@@ -78,13 +78,15 @@
     <aside class="wrapper__aside">
       <div class="sort">
         <h3 class="sort__header">Sort channels by:</h3>
-        <ul class="sort__options">
+        <form class="sort__options" name="sort__options">
+          <!-- <ul class="sort__options"> -->
           <li>
             <input
               class="choice choice--radio"
               name="sort"
               type="radio"
               id="sort-title"
+              value="title"
             />
             <label class="choice__label" for="sort-title">title</label>
           </li>
@@ -94,6 +96,7 @@
               name="sort"
               type="radio"
               id="sort-subscribers"
+              value="subscribers"
             />
             <label class="choice__label" for="sort-subscribers"
               >subscribers</label
@@ -105,6 +108,7 @@
               name="sort"
               type="radio"
               id="sort-videos"
+              value="videos"
             />
             <label class="choice__label" for="sort-videos">videos</label>
           </li>
@@ -114,40 +118,44 @@
               name="sort"
               type="radio"
               id="sort-views"
+              value="views"
             />
             <label class="choice__label" for="sort-views">views</label>
           </li>
-        </ul>
+          <!-- </ul> -->
+        </form>
         <button class="button">Clear</button>
       </div>
     </aside>
     <script src="../channel/channel.js"></script>
     <script>
-      // channels \/
+      const channelListComponent = document.querySelector("channel-list");
 
-      // const channelsList = document.querySelector(".channel__list");
-      // const channelsListLi = document.querySelector(".channel__list li");
-      // console.log(channelsListLi);
-      //
-      //
-      // fetch("../static/channels.json")
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     data.map((channel) => {
-      //       const liElement = document.createElement("li");
-      //
-      //       const title = channel.title;
-      //       const description = channel.description;
-      //       const customUrl = channel.customUrl;
-      //       const publishedAt = channel.publishedAt;
-      //       const thumbnails = channel.thumbnails;
-      //       const localized = channel.localized;
-      //       const country = channel.country;
-      //       const statistics = channel.statistics;
-      //
-      //       channelsList.appendChild(channelsListLi.cloneNode(true));
-      //     });
-      //   });
+      const setSortValue = (sortValue) => {
+        channelListComponent.attributes.sortValue.value = sortValue;
+      };
+
+      const setFilterValue = (filterValue) => {
+        channelListComponent.attributes.filterValue.value = filterValue;
+      };
+      // ------------------
+
+      const sortList = document.sort__options.sort;
+      let sortValue = null;
+
+      for (let i = 0; i < sortList.length; i++) {
+        sortList[i].addEventListener("change", function () {
+          setSortValue(this.value);
+        });
+      }
+
+      // ----------------
+
+      const filterInput = document.querySelector(".filter__input");
+      let filterValue = null;
+      filterInput.addEventListener("change", function () {
+        setFilterValue(this.value);
+      });
     </script>
   </body>
 </html>

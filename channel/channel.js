@@ -1,6 +1,7 @@
-// import styles from "./channel.css";
-
 class Channel extends HTMLElement {
+  sortValue = "";
+  filterValue = "";
+
   constructor() {
     super();
     this.shadow = this.attachShadow({ mode: "open" });
@@ -11,11 +12,20 @@ class Channel extends HTMLElement {
     this.render();
   }
 
-  //   async getStyle() {
-  //     const style = await fetch("../static/channel.css");
-  //     console.log(style);
-  //     return style;
-  //   }
+  static get observedAttributes() {
+    return ["sortValue", "filterValue"];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log("--attributeChangedCallback", name, oldValue, newValue);
+
+    switch (name) {
+      case "sortValue":
+        this.sortValue = newValue || "";
+      case "filterValue":
+        this.filterValue = newValue || "";
+    }
+  }
 
   get style() {
     return `
@@ -86,39 +96,7 @@ class Channel extends HTMLElement {
                 margin: 2px 0;
               }
 
-              .subscribers {
-              }
-              h3.subscribers__title {
-              }
-              p.subscribers__count {
-              }
-
-              .videos {
-              }
-              h3.videos__title {
-              }
-              p.videos__count {
-              }
-
-              .views {
-              }
-              h3.views__title {
-              }
-              p.views__count {
-              }
-
               @media only screen and (min-width: 544px) {
-                .main {
-                }
-
-                .channel__list {
-                }
-
-                .channel__list li {
-                }
-
-                .channel {
-                }
 
                 .channel__image {
                   width: 45%;
@@ -127,54 +105,13 @@ class Channel extends HTMLElement {
                 h2.channel__header {
                   font-size: 1em;
                 }
-
-                .channel__statistics {
-                }
-
-                .wrapper__statistic {
-                }
-
-                .wrapper__statistic h3 {
-                }
-
-                .wrapper__statistic p {
-                }
-
-                .subscribers {
-                }
-                h3.subscribers__title {
-                }
-                p.subscribers__count {
-                }
-
-                .videos {
-                }
-                h3.videos__title {
-                }
-                p.videos__count {
-                }
-
-                .views {
-                }
-                h3.views__title {
-                }
-                p.views__count {
-                }
               }
 
               @media only screen and (min-width: 768px) {
-                .main {
-                }
-
-                .channel__list {
-                }
 
                 .channel__list li {
                   display: block;
                   flex-basis: calc(50% - 4px);
-                }
-
-                .channel {
                 }
 
                 .channel__image {
@@ -185,12 +122,6 @@ class Channel extends HTMLElement {
                   font-size: 1em;
                 }
 
-                .channel__statistics {
-                }
-
-                .wrapper__statistic {
-                }
-
                 .wrapper__statistic h3 {
                   font-size: 0.8em;
                 }
@@ -198,53 +129,12 @@ class Channel extends HTMLElement {
                 .wrapper__statistic p {
                   font-size: 1.1em;
                 }
-
-                .subscribers {
-                }
-                h3.subscribers__title {
-                }
-                p.subscribers__count {
-                }
-
-                .videos {
-                }
-                h3.videos__title {
-                }
-                p.videos__count {
-                }
-
-                .views {
-                }
-                h3.views__title {
-                }
-                p.views__count {
-                }
               }
 
               @media only screen and (min-width: 1024px) {
-                .main {
-                }
-
-                .channel__list {
-                }
-
-                .channel__list li {
-                }
-
-                .channel {
-                }
-
-                .channel__image {
-                }
 
                 h2.channel__header {
                   font-size: 1.3em;
-                }
-
-                .channel__statistics {
-                }
-
-                .wrapper__statistic {
                 }
 
                 .wrapper__statistic h3 {
@@ -255,40 +145,13 @@ class Channel extends HTMLElement {
                   font-size: 1.3em;
                 }
 
-                .subscribers {
-                }
-                h3.subscribers__title {
-                }
-                p.subscribers__count {
-                }
-
-                .videos {
-                }
-                h3.videos__title {
-                }
-                p.videos__count {
-                }
-
-                .views {
-                }
-                h3.views__title {
-                }
-                p.views__count {
-                }
+                
               }
 
               @media only screen and (min-width: 1200px) {
-                .main {
-                }
-
-                .channel__list {
-                }
 
                 .channel__list li {
                   flex-basis: calc(25% - 6px);
-                }
-
-                .channel {
                 }
 
                 .channel__image {
@@ -299,39 +162,12 @@ class Channel extends HTMLElement {
                   font-size: 1em;
                 }
 
-                .channel__statistics {
-                }
-
-                .wrapper__statistic {
-                }
-
                 .wrapper__statistic h3 {
                   font-size: 0.8em;
                 }
 
                 .wrapper__statistic p {
                   font-size: 1.1em;
-                }
-
-                .subscribers {
-                }
-                h3.subscribers__title {
-                }
-                p.subscribers__count {
-                }
-
-                .videos {
-                }
-                h3.videos__title {
-                }
-                p.videos__count {
-                }
-
-                .views {
-                }
-                h3.views__title {
-                }
-                p.views__count {
                 }
               }
 
@@ -346,9 +182,11 @@ class Channel extends HTMLElement {
   }
 
   render() {
+    console.log(Channel.observedAttributes);
     Channel.asyncGetChannelsArray().then((channelsArr) => {
       const channelList = channelsArr.map((channel) => {
         return `
+        ${this.sortValue}
                 <li>
                     <div class="channel">
                     <img
@@ -382,13 +220,13 @@ class Channel extends HTMLElement {
             `;
       });
 
-      //   const style =
-      //   ${this.getStyle()}
+      console.log(this.sortValue);
 
       this.shadow.innerHTML = `
             ${this.style}
                 <div class="main">
                 <ul class="channel__list">
+                ${Channel.observedAttributes}
                 ${channelList.join("")}
                 </ul>
             </div>
@@ -398,6 +236,15 @@ class Channel extends HTMLElement {
 }
 
 customElements.define("channel-list", Channel);
+
+{
+  const list = document.querySelector("channel-list");
+
+  setTimeout(() => {
+    console.log("test");
+    list.removeAttribute("sortValue");
+  }, 2500);
+}
 
 // STARA WERSJA ------------------------------------START-
 // const channelsList = document.querySelector(".channel__list");
